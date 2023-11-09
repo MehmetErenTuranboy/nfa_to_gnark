@@ -1,0 +1,4 @@
+github.com/MehmetErenTuranboy/thompsons-construction_golang v0.0.0-20231108133840-aef839b424fe h1:skd6fI/t2yKMPc70Y7dhQA/27uQVMSX0kWWGpVcNGx0=
+github.com/MehmetErenTuranboy/thompsons-construction_golang v0.0.0-20231108133840-aef839b424fe/go.mod h1:aHq4K+Y5Ard4G6EfXNOmdUoMsEvIEl9QxhRM+Yph8O4=
+github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 h1:zN2lZNZRflqFyxVaTIU61KNKQ9C0055u9CAfpmqUvo4=
+github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3/go.mod h1:nPpo7qLxd6XL3hWJG/O60sR8ZKfMCiIoNap5GvD12KU=
