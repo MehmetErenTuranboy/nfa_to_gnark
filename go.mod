@@ -1,4 +1,4 @@
-module nfa2regex
+module github.com/MehmetErenTuranboy/nfa_to_gnark
 
 go 1.20
 
