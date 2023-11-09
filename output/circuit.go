@@ -1,36 +1,4 @@
-package to_gnark
-
-import (
-	"fmt"
-	"log"
-	"os"
-	"strconv"
-
-	"github.com/MehmetErenTuranboy/thompsons-construction_golang/tools"
-)
-
-var content string
-
-func ConstructCircuit(regextext string) {
-
-	fmt.Println("Before addConcatOperators:", regextext)
-	WildcardDetected(regextext)
-	regextext = tools.AddConcatOperators(regextext)
-	postfixVal := tools.InfixToPostfix(regextext)
-
-	fmt.Println("Postfix: ", postfixVal) // Changed from 'input' to 'postfixVal'
-
-	automataRes := tools.Compile(postfixVal)
-	visited := make(map[*tools.State]bool)
-
-	tools.PrintTransition(automataRes.InitialState, visited)
-
-}
-
-func WildcardDetected(regextext string) {
-
-	// Content to write to the new file
-	content = `package main
+package main
 
 	import (
 		"fmt"
@@ -45,14 +13,12 @@ func WildcardDetected(regextext string) {
 	
 	const (
 		stringLength    = 10
-		substringLenght = `
-	content += strconv.Itoa(len(regextext))
-	content += `
+		substringLenght = 4
 	)
 	
 	type charEqualityCircuit struct {
-		A [stringLength]frontend.Variable    ` + "`gnark:\",secret\"`" + `
-		B [substringLenght]frontend.Variable ` + "`gnark:\",public\"`" + `
+		A [stringLength]frontend.Variable    `gnark:",secret"`
+		B [substringLenght]frontend.Variable `gnark:",public"`
 	}
 	
 	func (circuit *charEqualityCircuit) Define(api frontend.API) error {
@@ -82,9 +48,7 @@ func WildcardDetected(regextext string) {
 	
 		return nil
 	}
-	`
-
-	content += `func main() {
+	func main() {
 	var circuit charEqualityCircuit
 
 	// Secret values
@@ -97,9 +61,7 @@ func WildcardDetected(regextext string) {
 	}
 
 	b := make([]*big.Int, substringLenght)
-	regexPattern := `
-	content += "\"" + regextext + "\""
-	content += `
+	regexPattern := "WORL"
 	for i, char := range regexPattern {
 		if i < substringLenght {
 			b[i] = big.NewInt(int64(char))
@@ -157,12 +119,4 @@ func WildcardDetected(regextext string) {
 	} else {
 		fmt.Println("Verification Result: Success")
 	}
-}`
-
-	// Use os.WriteFile to create the circuit.go file
-	err := os.WriteFile("output/circuit.go", []byte(content), 0644)
-	if err != nil {
-		log.Fatalf("Failed to write to circuit.go: %s", err)
-	}
-
 }
